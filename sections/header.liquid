@@ -14,26 +14,28 @@
           <div class="relative">
             <div
               x-on:click="open = ! open"
-              class="nav-link-btn flex items-center gap-1 cursor-pointer {% if link.active %}active{% endif %}"
+              class="nav-link-btn text-white flex items-center gap-1 cursor-pointer {% if link.active %}active{% endif %}"
             >
               {{- link.title }}
               {% render 'icon-chevron-down' %}
             </div>
-            <div class="nav-item-sub-menu" x-show="open" @click.away="open = false">
+            <div class="nav-item-sub-menu absolute flex flex-col bg-white" x-show="open" @click.away="open = false">
               {% for sub_link in link.links %}
-                <a href="{{ sub_link.url }}" class="sub-menu-link">{{ sub_link.title }}</a>
+                <a href="{{ sub_link.url }}" class="sub-menu-link ">{{ sub_link.title }}</a>
               {% endfor %}
             </div>
         {% else %}
-          <a href="{{ link.url }}" class="nav-link-btn {% if link.active %}active{% endif %}">{{ link.title }}</a>
+          <a href="{{ link.url }}" class="nav-link-btn text-white {% if link.active %}active{% endif %}">
+            {{- link.title -}}
+          </a>
         {% endif %}
       {% endfor %}
     </nav>
     <div class="lang_wrapper flex items-center gap-[2rem]">
       {% if shop.customer_accounts_enabled %}
         <div class="user_account_login_reg flex gap-[1rem] items-center">
-          <a href="{{routes.account_url}}" class="hover:text-cyan-400">Login</a>
-          <a href="{{routes.account_register_url}}" class="hover:text-cyan-400">Register</a>
+          <a href="{{routes.account_url}}" class="text-white hover:text-cyan-400">Login</a>
+          <a href="{{routes.account_register_url}}" class="text-white hover:text-cyan-400">Register</a>
         </div>
       {% endif %}
 
