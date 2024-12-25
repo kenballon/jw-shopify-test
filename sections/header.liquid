@@ -1,0 +1,78 @@
+{% assign main_menu_linklist = linklists[section.settings.menu].links %}
+
+<header class="main_header flex items-center">
+  <div class="site_logo_wrapper w-[40%]">
+    <a href="/en/home" aria-current="page" class="logo-link small-logo w-inline-block w--current">
+      {% comment %} <img src="{{ shop.logo | img_url: '200x' }}" alt="{{ shop.name }} logo"> {% endcomment %}
+      {{ section.settings.mobile_menu_id }}
+    </a>
+  </div>
+  <div class="navigation_wrapper flex w-[60%] justify-between items-center">
+    <nav x-data="{open: false}" class="nav_menu flex gap-2 items-center border border-slate-700 rounded-md p-1">
+      {% for link in main_menu_linklist %}
+        {% if link.links != blank %}
+          <div class="relative">
+            <div
+              x-on:click="open = ! open"
+              class="nav-link-btn flex items-center gap-1 cursor-pointer {% if link.active %}active{% endif %}"
+            >
+              {{- link.title }}
+              {% render 'icon-chevron-down' %}
+            </div>
+            <div class="nav-item-sub-menu" x-show="open" @click.away="open = false">
+              {% for sub_link in link.links %}
+                <a href="{{ sub_link.url }}" class="sub-menu-link">{{ sub_link.title }}</a>
+              {% endfor %}
+            </div>
+        {% else %}
+          <a href="{{ link.url }}" class="nav-link-btn {% if link.active %}active{% endif %}">{{ link.title }}</a>
+        {% endif %}
+      {% endfor %}
+    </nav>
+    <div class="lang_wrapper flex items-center gap-[2rem]">
+      {% if shop.customer_accounts_enabled %}
+        <div class="user_account_login_reg flex gap-[1rem] items-center">
+          <a href="{{routes.account_url}}" class="hover:text-cyan-400">Login</a>
+          <a href="{{routes.account_register_url}}" class="hover:text-cyan-400">Register</a>
+        </div>
+      {% endif %}
+
+      <div class="right-side">
+        <a href="{{routes.cart_url}}" class="flex justify-center items-center gap-1 flex-col hover:text-cyan-400">
+          <div class="cart-icon">
+            {% render 'icon-shopping-bag' %}
+          </div>
+          <div>Cart</div>
+        </a>
+      </div>
+    </div>
+  </div>
+</header>
+
+{% schema %}
+{
+  "name": "Header Section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "mobile_menu_id",
+      "label": "Site Logo Text",
+      "default": "Site Logo",
+      "info": "Site logo text for mobile view"
+    },
+    {
+      "type": "image_picker",
+      "id": "site_logo_image",
+      "label": "Site Logo Image",
+      "info": "Upload a site logo image (PNG or SVG only)"
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Menu Navigation",
+      "default": "main-menu",
+      "info": "This is the title of the desktop menu"
+    }
+  ]
+}
+{% endschema %}
