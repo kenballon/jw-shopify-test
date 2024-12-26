@@ -2,9 +2,15 @@
 
 <header class="main_header flex items-center">
   <div class="site_logo_wrapper w-[40%]">
-    <a href="/en/home" aria-current="page" class="logo-link small-logo w-inline-block w--current">
+    <a href="/en/home" aria-current="page" class="logo-link">
       {% comment %} <img src="{{ shop.logo | img_url: '200x' }}" alt="{{ shop.name }} logo"> {% endcomment %}
       {{ section.settings.mobile_menu_id }}
+      <img
+        src="{{ section.settings.site_logo_image | img_url: '200x' }}"
+        alt="{{ section.settings.mobile_menu_id }} logo"
+        width="200"
+        height="100"
+      >
     </a>
   </div>
   <div class="navigation_wrapper flex w-[60%] justify-between items-center">
@@ -19,13 +25,13 @@
               {{- link.title }}
               {% render 'icon-chevron-down' %}
             </div>
-            <div class="nav-item-sub-menu absolute flex flex-col bg-white" x-show="open" @click.away="open = false">
+            <div class="nav-item-sub-menu" x-show="open" @click.away="open = false">
               {% for sub_link in link.links %}
                 <a href="{{ sub_link.url }}" class="sub-menu-link ">{{ sub_link.title }}</a>
               {% endfor %}
             </div>
         {% else %}
-          <a href="{{ link.url }}" class="nav-link-btn text-white {% if link.active %}active{% endif %}">
+          <a href="{{ link.url }}" class="nav-link-btn {% if link.active %}active{% endif %}">
             {{- link.title -}}
           </a>
         {% endif %}
