@@ -13,7 +13,8 @@
       "header": {
         "type": "header",
         "settings": {
-          "site_logo_image": "shopify://shop_images/site_logo.png",
+          "site_logo_text": "Site Logo",
+          "brand_logo": "shopify://shop_images/site_logo.png",
           "menu": "main-menu"
         }
       }
