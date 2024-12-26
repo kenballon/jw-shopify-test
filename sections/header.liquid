@@ -6,7 +6,7 @@
       {% comment %} <img src="{{ shop.logo | img_url: '200x' }}" alt="{{ shop.name }} logo"> {% endcomment %}
       {% if section.settings.site_logo_image != blank %}
         <img
-          src="{{ section.settings.site_logo_image | image_url: '200x' }}"
+          src="{{ shop.logo | image_url: '200x' }}"
           alt="{{ section.settings.site_logo_text }} logo"
           width="200"
           height="100"
