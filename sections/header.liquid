@@ -1,19 +1,22 @@
 {% assign main_menu_linklist = linklists[section.settings.menu].links %}
 
-<header class="main_header flex items-center">
-  <div class="site_logo_wrapper w-[40%]">
+<header class="main_header grid grid-cols-3 gap-2 items-center">
+  <div class="site_logo_wrapper w-full">
     <a href="/en/home" aria-current="page" class="logo-link">
       {% comment %} <img src="{{ shop.logo | img_url: '200x' }}" alt="{{ shop.name }} logo"> {% endcomment %}
-      {{ section.settings.mobile_menu_id }}
-      <img
-        src="{{ section.settings.site_logo_image | img_url: '200x' }}"
-        alt="{{ section.settings.mobile_menu_id }} logo"
-        width="200"
-        height="100"
-      >
+      {% if section.settings.site_logo_image != blank %}
+        <img
+          src="{{ section.settings.site_logo_image | image_url: '200x' }}"
+          alt="{{ section.settings.site_logo_text }} logo"
+          width="200"
+          height="100"
+        >
+      {% else %}
+        {% render 'site-logo-default' %}
+      {% endif %}
     </a>
   </div>
-  <div class="navigation_wrapper flex w-[60%] justify-between items-center">
+  <div class="navigation_wrapper flex w-full items-center justify-center">
     <nav x-data="{open: false}" class="nav_menu flex gap-2 items-center border border-slate-700 rounded-md p-1">
       {% for link in main_menu_linklist %}
         {% if link.links != blank %}
@@ -37,20 +40,23 @@
         {% endif %}
       {% endfor %}
     </nav>
-    <div class="lang_wrapper flex items-center gap-[2rem]">
+  </div>
+  <div class="acount-shop-wrapper flex items-center w-full">
+    <div class="ml-auto flex items-center gap-[2rem]">
       {% if shop.customer_accounts_enabled %}
         <div class="user_account_login_reg flex gap-[1rem] items-center">
           <a href="{{routes.account_url}}" class="text-white hover:text-cyan-400">Login</a>
           <a href="{{routes.account_register_url}}" class="text-white hover:text-cyan-400">Register</a>
         </div>
       {% endif %}
-
       <div class="right-side">
-        <a href="{{routes.cart_url}}" class="flex justify-center items-center gap-1 flex-col hover:text-cyan-400">
-          <div class="cart-icon">
+        <a
+          href="{{routes.cart_url}}"
+          class="flex text-white justify-center items-center gap-1 flex-col hover:text-cyan-400"
+        >
+          <div class="cart-icon" title="Cart">
             {% render 'icon-shopping-bag' %}
           </div>
-          <div>Cart</div>
         </a>
       </div>
     </div>
@@ -63,7 +69,7 @@
   "settings": [
     {
       "type": "text",
-      "id": "mobile_menu_id",
+      "id": "site_logo_text",
       "label": "Site Logo Text",
       "default": "Site Logo",
       "info": "Site logo text for mobile view"
