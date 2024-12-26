@@ -3,13 +3,12 @@
 <header class="main_header grid grid-cols-3 gap-2 items-center">
   <div class="site_logo_wrapper w-full">
     <a href="/en/home" aria-current="page" class="logo-link">
-      {% comment %} <img src="{{ shop.logo | img_url: '200x' }}" alt="{{ shop.name }} logo"> {% endcomment %}
-      {% if section.settings.site_logo_image != blank %}
+      {% if section.settings.site_logo_image %}
         <img
-          src="{{ shop.logo | image_url: '200x' }}"
-          alt="{{ section.settings.site_logo_text }} logo"
-          width="200"
-          height="100"
+          src="{{ settings.site_logo_image | img_url: 'master' }}"
+          alt="{{ settings.site_logo_text }}"
+          width="150"
+          height="auto"
         >
       {% else %}
         {% render 'site-logo-default' %}
