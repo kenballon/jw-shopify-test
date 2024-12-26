@@ -651,7 +651,7 @@ video {
 }
 
 .site_logo_wrapper a img {
-  max-width: 150px;
+  max-width: 64px;
   height: auto;
   -o-object-fit: contain;
      object-fit: contain;
